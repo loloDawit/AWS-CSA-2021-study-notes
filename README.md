@@ -5,6 +5,8 @@
 ![Course_year](https://img.shields.io/badge/Course%20Year-2021-brightgreen.svg)
 ![Last_Commit](https://img.shields.io/github/last-commit/lolodawit/AWS-CSA-2021-study-notes.svg)
 
+## Courses
+* [VPC](./courses/vpc.md)
 ## AWS Resources
 
 * [AWS Certified Solutions Architect Associate page](https://aws.amazon.com/certification/certified-solutions-architect-associate/)
