@@ -1,4 +1,4 @@
-# [AWS Certified Solution Architect - Associate](https://aws.amazon.com/training/path-architecting/) 2021 Exam Notes
+# [AWS Certified Solution Architect - Associate](https://aws.amazon.com/certification/certified-solutions-architect-associate/?ep=sec&sec=assoc_saa) 2021 Exam Notes
 
 ![License](https://img.shields.io/github/license/AlessioCasco/AWS-CSA-2019-study-notes.svg)
 
