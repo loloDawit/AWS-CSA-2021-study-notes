@@ -17,13 +17,16 @@ Think of a VPC as a Virtual Data Center in the cloud. Amazon Virtual Private Clo
     - A logically isolated virtual network in the AWS cloud. We define a VPC’s IP address space from ranges we select. 
 
 * **Internet Gateway:**
+
     - The Amazon VPC side of a connection to the public Internet. A VPC can have only one internet gateway.
     - Creating a VPC also creates a route table but it doesn’t create a subnet or internet gateway by default.
     - For a VPC route table point to an internet gateway, we must first attach the internet gateway to the VPC.
     - We can attach only one internet gateway to a VPC at a time; if we’re getting an error when trying to attach an Internet Gateway to a VPC, it could be that an Internet Gateway is already attached to the VPC.
     - Before deleting an IGW, we must first detach it from the VPC it’s attached to.
 
-* **Subnet:** A segment of a VPC’s IP address range where we can place groups of isolated resources.
+* **Subnet:** 
+
+    - A segment of a VPC’s IP address range where we can place groups of isolated resources.
     - Use public facing subnets for public facing web servers
     - Use private subnets for backend services, databases, etc.
     - Each subnet is always mapped to an AZ (Availability Zone); subnets are strongly bound
@@ -44,15 +47,18 @@ to an AZ - it's not possible to span subnets across multiple AZs. However, secur
     - Instances within a private subnet cannot communicate with the outside internet by default. In order for your instances within the private subnet to communicate with the internet (i.e. to run “yum update”), you’ll need to add 0.0.0.0/0 with the target pointing to your NAT gateway/instance to the route table in the private subnet
 
 * **Virtual Private Gateway:** 
+
     - The Amazon VPC side of a VPN connection.
 
 * **Peering Connection:** 
+
     - A peering connection enables us to route traffic via private IP addresses between two peered VPCs.
 
 * **VPC Endpoints:** 
     - Enables private connectivity to services hosted in AWS, from within our VPC without using an Internet Gateway, VPN, Network Address Translation (NAT) devices, or firewall proxies.
     
 * **Egress-only Internet Gateway:** 
+
     - A stateful gateway to provide egress only access for IPv6 traffic from the VPC to the Internet.
 
 ## What can we do with a VPC? 
@@ -74,6 +80,7 @@ to an AZ - it's not possible to span subnets across multiple AZs. However, secur
     - we can peer VPC's with other AWS accounts as well as with other VPC's in the same account.
     
 * **How to VPC Peering** 
+
 Overlapping CIDR Blocks is not supported: We can't connect two VPC's that have the same CIDR.
 Transitive Peering is not supported:
 We have a VPC peering connection between VPC A and VPC B (pcx-aaaabbbb), and between VPC A and VPC C (pcx-aaaacccc). There is no VPC peering connection between VPC B and VPC C. We cannot route packets directly from VPC B to VPC C through VPC A.
