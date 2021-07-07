@@ -27,17 +27,50 @@ Think of a VPC as a Virtual Data Center in the cloud. Amazon Virtual Private Clo
 
 * **Subnet:** 
 
+    - A subnet is a range of IP addresses in your VPC. 
     - A segment of a VPC’s IP address range where we can place groups of isolated resources.
     - Use public facing subnets for public facing web servers
     - Use private subnets for backend services, databases, etc.
     - Each subnet is always mapped to an AZ (Availability Zone); subnets are strongly bound
-to an AZ - it's not possible to span subnets across multiple AZs. However, security groups, NACLs, and Route Tables can span multiple subnets and AZs. Remember:
+to an AZ - it's not possible to span subnets across multiple AZs. However, **security groups, NACLs, and Route Tables can span multiple subnets and AZs. Remember:**
     - **1 subnet == 1 AZ**
     - Only one internet gateway can be attached to a subnet.
     - For multiple layers of security, it’s recommended you use a VPC in addition to security groups and NACLs (Network Access Control Lists).
     - Security groups (first layer of defense) exist at the instance level.
     - NACLs (second layer of defense) exist at the subnet level.
     - It’s possible to implement a private cloud (i.e. a corporate data center) using VPCs.
+
+* **Subnet Routing**
+
+    - Each subnet must be associated with a route table, which specifies the allowed routes for outbound traffic leaving the subnet.
+    - Every subnet that you create is automatically associated with the main route table for the VPC.
+    - You can allow an instance in your VPC to initiate outbound connections to the internet over IPv4 but prevent unsolicited inbound connections from the internet using a NAT gateway or NAT instance.
+    - To initiate outbound-only communication to the internet over IPv6, you can use an egress-only internet gateway.
+
+* **Subnet Security**
+
+    - Security Groups — control inbound and outbound traffic for your instances
+        - You can associate one or more (up to five) security groups to an instance in your VPC.
+        - If you don’t specify a security group, the instance automatically belongs to the default security group.
+        - When you create a security group, it has no inbound rules. By default, it includes an outbound rule that allows all outbound traffic.
+        - Security groups are associated with network interfaces.
+    - Network Access Control Lists — control inbound and outbound traffic for your subnets
+        - Each subnet in your VPC must be associated with a network ACL. If none is associated, automatically associated with the default network ACL.
+        - You can associate a network ACL with multiple subnets; however, a subnet can be associated with only one network ACL at a time.
+        - A network ACL contains a numbered list of rules that is evaluated in order, starting with the lowest numbered rule, to determine whether traffic is allowed in or out of any subnet associated with the network ACL.
+        - The default network ACL is configured to allow all traffic to flow in and out of the subnets to which it is associated.
+
+
+Security Group | Network ACL
+-- | --
+Operates at the instance level | Operates at the subnet level
+Supports allow rules only | Supports allow rules and deny rules
+Is stateful: Return traffic is automatically allowed, regardless of any rules | Is stateless: Return traffic must be explicitly allowed by rules
+We evaluate all rules before deciding whether to allow traffic | We process rules in number order when deciding whether to allow traffic
+Applies only to EC2 instances and similar services that use EC2 as a backend. | Automatically applies to all
+A security group is specified when launching the instances, or is associated with the instance, later on, | Instances in the subnets it’s associated with
+
+
 
 * **NAT Gateway:**
 
