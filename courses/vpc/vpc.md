@@ -36,6 +36,7 @@ to an AZ - it's not possible to span subnets across multiple AZs. However, secur
     - It’s possible to implement a private cloud (i.e. a corporate data center) using VPCs.
 
 * **NAT Gateway:**
+
     - A highly available, managed Network Address Translation (NAT) service for our resources in a private subnet to access the Internet.
     - NAT is used for traffic routing
     - It’s best practice to always enable HTTP and HTTPs traffic.
@@ -57,3 +58,54 @@ to an AZ - it's not possible to span subnets across multiple AZs. However, secur
 ## What can we do with a VPC? 
 
 ![IMG_AF737D4795B7-1](https://user-images.githubusercontent.com/16858570/124671083-cd2ad200-de69-11eb-8393-406fffa85123.jpeg)
+
+- we can have multiple VPC in a region (default up to 5).
+- we can have 1 internet gateway per VPC.
+- 1 Subnet = 1 AZ
+- Security groups are Stateful, instead, Network ACLs are stateless.
+
+* **Default VPC**
+
+    - Amazon provides a default VPC to immediately deploy instances.
+    - All Subnets in default VPC have a route out to the internet.
+
+* **VPC Peering**
+    - we can peer one VPC to another VPC using private IP subnets.
+    - we can peer VPC's with other AWS accounts as well as with other VPC's in the same account.
+    
+* **How to VPC Peering** 
+Overlapping CIDR Blocks is not supported: We can't connect two VPC's that have the same CIDR.
+Transitive Peering is not supported:
+We have a VPC peering connection between VPC A and VPC B (pcx-aaaabbbb), and between VPC A and VPC C (pcx-aaaacccc). There is no VPC peering connection between VPC B and VPC C. We cannot route packets directly from VPC B to VPC C through VPC A.
+
+![vpc_peering](https://camo.githubusercontent.com/126abfb98b8a1548b5eb79a8b2e2f42326907518/68747470733a2f2f646f63732e6177732e616d617a6f6e2e636f6d2f7670632f6c61746573742f70656572696e672f696d616765732f7472616e7369746976652d70656572696e672d6469616772616d2e706e67)
+
+**Build Custom VPC**
+
+- VPC and Subnet Sizing The first four IP addresses and the last IP address in each subnet CIDR block are not available for us to use and cannot be assigned to an instance.
+- For Nat Instances we have to disable the Source/Destination Checks.
+- Use Nat Gateways instead of Nat Instances
+
+**Network Access Control Lists vs Security Groups**
+
+- NACL cannot be deployed in multiple VPCs.
+- NACL cannot be attached to multiple subnets, only one at the time.
+- Each subnet must be associated with a network ACL, if we don't, default NACL will be used.
+- By default, when we create one NACL, everything is denied.
+- Rules are applied in numerical order (starting from the lowest), so when we should create the first rule having number 100 and add others on incremental of 100
+- NACL are stateless (opposite of Security Groups)
+- Remember to open ephemeral ports on our outbound rules only.
+- If we have to block specific IP addresses, use network ACL not Security Groups
+
+**Custom VPC's and ELB's**
+
+- Design tip: Remember that ELB needs at least two public AZ's, so when designing our network,
+remember to create at least two public subnets in two AZ.
+
+**VPC Flow Logs**
+
+VPC Flow Logs is a feature that enables us to capture information about the IP traffic going to and from network interfaces in our VPC. Flow log data can be published to Amazon CloudWatch Logs and Amazon S3. After we've created a flow log, we can retrieve and view its data in the chosen destination. 
+
+**VPC Endpoints**
+
+A VPC endpoint enables we to privately connect our VPC to supported AWS services and VPC endpoint services powered by Private Link without requiring an internet gateway, NAT device, VPN connection, or AWS Direct Connect connection.
