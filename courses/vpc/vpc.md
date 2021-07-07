@@ -14,6 +14,7 @@ Think of a VPC as a Virtual Data Center in the cloud. Amazon Virtual Private Clo
 ![IMG_147F4C5671BC-1](https://user-images.githubusercontent.com/16858570/124670870-758c6680-de69-11eb-95c4-188bac3c2345.jpeg)
 
 * **A Virtual Private Cloud:**
+
     - A logically isolated virtual network in the AWS cloud. We define a VPC’s IP address space from ranges we select. 
 
 * **Internet Gateway:**
@@ -55,6 +56,7 @@ to an AZ - it's not possible to span subnets across multiple AZs. However, secur
     - A peering connection enables us to route traffic via private IP addresses between two peered VPCs.
 
 * **VPC Endpoints:** 
+
     - Enables private connectivity to services hosted in AWS, from within our VPC without using an Internet Gateway, VPN, Network Address Translation (NAT) devices, or firewall proxies.
     
 * **Egress-only Internet Gateway:** 
@@ -76,6 +78,7 @@ to an AZ - it's not possible to span subnets across multiple AZs. However, secur
     - All Subnets in default VPC have a route out to the internet.
 
 * **VPC Peering**
+
     - we can peer one VPC to another VPC using private IP subnets.
     - we can peer VPC's with other AWS accounts as well as with other VPC's in the same account.
     
