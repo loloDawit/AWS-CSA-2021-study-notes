@@ -49,12 +49,12 @@ to an AZ - it's not possible to span subnets across multiple AZs. However, **sec
 
 * **Subnet Security**
 
-    - Security Groups — control inbound and outbound traffic for your instances
+    - **Security Groups** — control inbound and outbound traffic for your instances
         - You can associate one or more (up to five) security groups to an instance in your VPC.
         - If you don’t specify a security group, the instance automatically belongs to the default security group.
         - When you create a security group, it has no inbound rules. By default, it includes an outbound rule that allows all outbound traffic.
         - Security groups are associated with network interfaces.
-    - Network Access Control Lists — control inbound and outbound traffic for your subnets
+    - **Network Access Control Lists** — control inbound and outbound traffic for your subnets
         - Each subnet in your VPC must be associated with a network ACL. If none is associated, automatically associated with the default network ACL.
         - You can associate a network ACL with multiple subnets; however, a subnet can be associated with only one network ACL at a time.
         - A network ACL contains a numbered list of rules that is evaluated in order, starting with the lowest numbered rule, to determine whether traffic is allowed in or out of any subnet associated with the network ACL.
