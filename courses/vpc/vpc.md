@@ -88,6 +88,16 @@ A security group is specified when launching the instances, or is associated wit
 
     - A peering connection enables us to route traffic via private IP addresses between two peered VPCs.
 
+* **Elastic IP Addresses**
+
+    - A static, public IPv4 address.
+    - You can associate an Elastic IP address with any instance or network interface for any VPC in your account.
+    - You can mask the failure of an instance by rapidly remapping the address to another instance in your VPC.
+    - Your Elastic IP addresses remain associated with your AWS account until you explicitly release them.
+    - AWS imposes a small hourly charge when EIPs aren’t associated with a running instance, or when they are associated with a stopped instance or an unattached network interface.
+    - You’re limited to five Elastic IP addresses.
+
+
 * **VPC Endpoints:** 
 
     - Enables private connectivity to services hosted in AWS, from within our VPC without using an Internet Gateway, VPN, Network Address Translation (NAT) devices, or firewall proxies.
@@ -149,6 +159,9 @@ remember to create at least two public subnets in two AZ.
 
 VPC Flow Logs is a feature that enables us to capture information about the IP traffic going to and from network interfaces in our VPC. Flow log data can be published to Amazon CloudWatch Logs and Amazon S3. After we've created a flow log, we can retrieve and view its data in the chosen destination. 
 
-**VPC Endpoints**
-
-A VPC endpoint enables we to privately connect our VPC to supported AWS services and VPC endpoint services powered by Private Link without requiring an internet gateway, NAT device, VPN connection, or AWS Direct Connect connection.
+* **Pricing**
+    - Charged for VPN Connection-hour
+    - Charged for each “NAT Gateway-hour” that your NAT gateway is provisioned and available.
+    - Data processing charges apply for each Gigabyte processed through the NAT gateway regardless of the traffic’s source or destination.
+    - You also incur standard AWS data transfer charges for all data transferred via the NAT gateway.
+    - Charges for unused or inactive Elastic IPs.
